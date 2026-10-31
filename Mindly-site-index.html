@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mindly — AI Wellness Studio</title>
+<meta name="description" content="Mindly: щоденник настрою, дихальні практики та демонстраційний AI-помічник. Трохи більше спокою. Щодня.">
+<meta property="og:title" content="Mindly — AI Wellness Studio">
+<meta property="og:description" content="Трохи більше спокою. Щодня.">
+<meta name="theme-color" content="#4b2e83">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%234b2e83'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23cdbdf0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--milk:#fbf8f4;--lav:#e9e1f8;--lilac:#cdbdf0;--beige:#f1e6da;--ink:#2a1b4a;--deep:#4b2e83;--mut:#6a5f82;--card:rgba(255,255,255,.62);--r:22px;--sh:0 10px 30px -12px rgba(75,46,131,.28)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:400 1rem/1.6 Manrope,system-ui,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 85% -5%,var(--lav),transparent),radial-gradient(700px 500px at -10% 40%,var(--beige),transparent),var(--milk);min-height:100vh}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.1;letter-spacing:-.02em}
+h1{font-size:clamp(2.4rem,9vw,4.6rem)}h2{font-size:clamp(1.7rem,5vw,2.6rem);margin-bottom:.6rem}h3{font-size:1.25rem}
+p{color:var(--mut)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.wrap{width:min(1100px,92%);margin:auto}
+section{padding:4.5rem 0}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(251,248,244,.72);border-bottom:1px solid rgba(75,46,131,.08)}
+.bar{display:flex;align-items:center;gap:1rem;justify-content:space-between;padding:.7rem 0}
+.logo{font:600 1.5rem Fraunces,serif;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo i{width:22px;height:22px;border-radius:50%;background:conic-gradient(from 200deg,var(--deep),var(--lilac),var(--deep))}
+nav{display:none;gap:1.3rem}nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--mut)}nav a:hover{color:var(--deep)}
+nav.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--milk);padding:1rem 4%;border-bottom:1px solid var(--lav)}
+.tools{display:flex;gap:.5rem;align-items:center}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:.7rem 1.3rem;font-weight:700;transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-block}
+.pri{background:var(--deep);color:#fff;box-shadow:var(--sh)}.pri:hover{transform:translateY(-2px)}
+.sec{background:var(--lav);color:var(--deep)}
+.lang{background:transparent;border:1.5px solid var(--lilac);padding:.35rem .8rem;color:var(--deep)}
+.burger{background:var(--lav);color:var(--deep);padding:.45rem .8rem}
+@media(min-width:860px){nav{display:flex}.burger{display:none}}
+.hero{display:grid;gap:2.5rem;align-items:center;padding-top:3rem}
+@media(min-width:860px){.hero{grid-template-columns:1.15fr 1fr}}
+.hero p.lead{font-size:1.15rem;margin:1.2rem 0 1.8rem;max-width:34rem}
+.orbwrap{position:relative;aspect-ratio:1;max-width:420px;margin:auto;width:100%}
+.orb{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--lilac) 40%,var(--deep) 100%);box-shadow:0 30px 70px -20px rgba(75,46,131,.55);animation:float 7s ease-in-out infinite}
+.ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(75,46,131,.2)}.ring.b{inset:-6%;border-style:dashed;animation:spin 60s linear infinite}
+.bub{position:absolute;background:var(--card);backdrop-filter:blur(10px);border:1px solid #fff;border-radius:18px;padding:.6rem .9rem;font-size:.85rem;box-shadow:var(--sh);color:var(--ink)}
+@keyframes float{50%{transform:translateY(-14px)}}@keyframes spin{to{transform:rotate(360deg)}}
+.grid{display:grid;gap:1rem}
+@media(min-width:700px){.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);padding:1.4rem;box-shadow:var(--sh)}
+.card p{margin-top:.4rem;font-size:.95rem}
+.ico{font-size:1.6rem;display:block;margin-bottom:.5rem}
+.tabs{display:flex;gap:.4rem;overflow-x:auto;padding:.3rem;background:var(--lav);border-radius:999px;margin:1.5rem 0;width:fit-content;max-width:100%}
+.tabs button{background:transparent;color:var(--deep);white-space:nowrap}.tabs button[aria-selected=true]{background:var(--deep);color:#fff}
+.panel[hidden]{display:none}
+.moods{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.mood{font-size:2rem;background:#fff;padding:.5rem .8rem;border-radius:18px;border:2px solid transparent}.mood[aria-pressed=true]{border-color:var(--deep);transform:scale(1.12)}
+textarea,input[type=text],input[type=date],select{font:inherit;width:100%;padding:.8rem 1rem;border-radius:16px;border:1.5px solid var(--lilac);background:#fff;color:var(--ink)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.85rem}
+.cal b{color:var(--mut);font-weight:500}.cal span{aspect-ratio:1;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.7)}
+.cal span.on{background:var(--lav);font-size:1.15rem}
+.hist{list-style:none;padding:0;display:grid;gap:.5rem;max-height:300px;overflow:auto;margin-top:.8rem}
+.hist li{background:#fff;border-radius:14px;padding:.6rem .9rem;font-size:.92rem}
+.hist small{color:var(--mut);display:block}
+.empty{color:var(--mut);font-size:.9rem}
+.chat{display:flex;flex-direction:column;height:min(520px,70vh)}
+.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:.6rem;padding:.4rem}
+.m{max-width:85%;padding:.7rem 1rem;border-radius:18px;animation:pop .3s}.m.u{align-self:flex-end;background:var(--deep);color:#fff;border-bottom-right-radius:4px}.m.a{background:#fff;border-bottom-left-radius:4px}
+.dots span{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--lilac);animation:bl 1s infinite}.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@keyframes bl{50%{transform:translateY(-5px);background:var(--deep)}}@keyframes pop{from{opacity:0;transform:scale(.95)}}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin:.6rem 0}.chips button{background:var(--lav);color:var(--deep);font-size:.85rem;padding:.4rem .9rem}
+.send{display:flex;gap:.5rem}
+.note{font-size:.82rem;color:var(--mut);margin-top:.6rem}
+.stage{display:grid;place-items:center;height:240px}
+.po{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--lilac) 45%,var(--deep));transition:transform 4s ease-in-out;box-shadow:0 0 60px rgba(139,108,214,.5)}
+.pt{font:600 1.5rem Fraunces,serif;text-align:center;min-height:2.4em;padding:0 .5rem}
+.time{font:600 2rem Fraunces,serif;text-align:center}
+.big{font-size:2.2rem;font-family:Fraunces,serif;font-weight:600;color:var(--deep)}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.chk{display:flex;gap:.6rem;align-items:center;padding:.4rem 0}.chk input{width:20px;height:20px;accent-color:var(--deep)}
+.hab{display:grid;grid-template-columns:1.4fr repeat(7,1fr);gap:4px;align-items:center;font-size:.8rem}
+.hab button{padding:0;aspect-ratio:1;border-radius:10px;background:#fff;color:var(--deep)}.hab button.on{background:var(--deep);color:#fff}
+.price{display:flex;flex-direction:column;gap:.8rem}.price.hl{background:linear-gradient(160deg,var(--deep),#6b44b8);color:#fff}.price.hl p,.price.hl li{color:#e9e1f8}
+.price ul{padding-left:1.1rem;display:grid;gap:.3rem;color:var(--mut);font-size:.95rem}
+.demo{display:inline-block;background:var(--beige);border-radius:999px;font-size:.75rem;padding:.15rem .7rem;color:var(--deep)}
+details{background:var(--card);border-radius:18px;padding:1rem 1.3rem;margin-bottom:.6rem;border:1px solid #fff}summary{cursor:pointer;font-weight:700}details p{margin-top:.5rem}
+dialog{border:0;border-radius:var(--r);padding:1.6rem;max-width:min(420px,92vw);box-shadow:0 30px 80px rgba(42,27,74,.4);background:var(--milk)}dialog::backdrop{background:rgba(42,27,74,.45)}
+.fake{height:120px;border-radius:18px;background:linear-gradient(135deg,var(--deep),var(--lilac));margin:1rem 0;padding:1rem;color:#fff;display:flex;align-items:end;font-size:.85rem}
+#toast{position:fixed;left:50%;bottom:1.2rem;transform:translate(-50%,150%);background:var(--ink);color:#fff;padding:.7rem 1.3rem;border-radius:999px;transition:transform .3s;z-index:50}#toast.show{transform:translate(-50%,0)}
+footer{padding:2.5rem 0;border-top:1px solid var(--lav);font-size:.88rem;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="logo" href="#home"><i></i>Mindly</a>
+<nav id="nav"><a href="#features" data-i18n="nav_f"></a><a href="#studio" data-i18n="nav_s"></a><a href="#pricing" data-i18n="nav_p"></a><a href="#faq" data-i18n="nav_q"></a></nav>
+<div class="tools"><button class="lang" id="lang" aria-label="Language">EN</button><button class="burger" id="burger" aria-label="Menu">☰</button></div>
+</div></header>
+
+<main id="home">
+<div class="wrap hero">
+<div>
+<h1 data-i18n="slogan"></h1>
+<p class="lead" data-i18n="lead"></p>
+<div class="row"><a class="btn pri" href="#studio" data-i18n="cta1"></a><a class="btn sec" href="#features" data-i18n="cta2"></a></div>
+</div>
+<div class="orbwrap" aria-hidden="true"><div class="ring b"></div><div class="ring"></div><div class="orb"></div>
+<div class="bub" style="top:8%;left:-2%">😌 <span data-i18n="b1"></span></div>
+<div class="bub" style="bottom:12%;right:-2%">🌬️ 4–4</div></div>
+</div>
+
+<section id="features"><div class="wrap">
+<h2 data-i18n="f_h"></h2><p data-i18n="f_p" style="max-width:36rem;margin-bottom:1.5rem"></p>
+<div class="grid g3">
+<div class="card"><span class="ico">📓</span><h3 data-i18n="f1"></h3><p data-i18n="f1p"></p></div>
+<div class="card"><span class="ico">💬</span><h3 data-i18n="f2"></h3><p data-i18n="f2p"></p></div>
+<div class="card"><span class="ico">🌿</span><h3 data-i18n="f3"></h3><p data-i18n="f3p"></p></div>
+<div class="card"><span class="ico">🎯</span><h3 data-i18n="f4"></h3><p data-i18n="f4p"></p></div>
+<div class="card"><span class="ico">🔒</span><h3 data-i18n="f5"></h3><p data-i18n="f5p"></p></div>
+<div class="card"><span class="ico">🌐</span><h3 data-i18n="f6"></h3><p data-i18n="f6p"></p></div>
+</div></div></section>
+
+<section id="studio"><div class="wrap">
+<h2 data-i18n="s_h"></h2><p data-i18n="disc"></p>
+<div class="tabs" role="tablist" id="tabs"></div>
+
+<div class="panel" id="p-mood"><div class="grid g2">
+<div class="card"><h3 data-i18n="m_h"></h3>
+<div class="moods" id="moods"></div>
+<textarea id="mc" rows="3" data-i18n-ph="m_ph"></textarea>
+<div class="row" style="margin-top:.8rem"><button class="pri" id="msave" data-i18n="m_save"></button></div>
+<h3 style="margin-top:1.4rem" data-i18n="m_chart"></h3><div id="chart"></div></div>
+<div class="card"><h3 data-i18n="m_cal"></h3><div class="cal" id="cal"></div>
+<h3 style="margin-top:1.4rem" data-i18n="m_hist"></h3>
+<div class="row" style="margin:.5rem 0"><input type="date" id="mf" style="max-width:200px" aria-label="date"><button class="sec" id="mclr" data-i18n="m_all"></button></div>
+<ul class="hist" id="hist"></ul></div></div></div>
+
+<div class="panel" id="p-chat" hidden><div class="card chat">
+<div class="msgs" id="msgs" aria-live="polite"></div>
+<div class="chips" id="chips"></div>
+<form class="send" id="cf"><input type="text" id="ci" data-i18n-ph="c_ph" autocomplete="off"><button class="pri" data-i18n="c_send"></button></form>
+<p class="note" data-i18n="c_note"></p></div></div>
+
+<div class="panel" id="p-prac" hidden><div class="grid g2">
+<div class="card"><h3 data-i18n="pr_h"></h3><div class="row" style="margin:.8rem 0"><select id="psel" aria-label="practice"></select><select id="pmin" aria-label="min" style="max-width:120px"><option value="1">1</option><option value="3" selected>3</option><option value="5">5</option></select></div>
+<div class="row"><button class="pri" id="pgo" data-i18n="pr_start"></button></div><p class="note" id="pdesc"></p></div>
+<div class="card"><div class="stage"><div class="po" id="po"></div></div><div class="pt" id="pt" aria-live="polite"></div><div class="time" id="ptime">0:00</div></div></div></div>
+
+<div class="panel" id="p-cab" hidden><div class="grid g2">
+<div class="card"><h3 id="hello"></h3><input type="text" id="uname" data-i18n-ph="u_name" style="margin:.7rem 0" maxlength="30">
+<div class="grid g3" id="stats" style="grid-template-columns:repeat(3,1fr)"></div>
+<h3 style="margin-top:1.3rem" data-i18n="u_goals"></h3><div id="goals"></div></div>
+<div class="card"><h3 data-i18n="u_hab"></h3><div class="hab" id="habs" style="margin:.7rem 0"></div>
+<h3 style="margin-top:1.3rem" data-i18n="u_act"></h3><ul class="hist" id="act"></ul>
+<div class="row" style="margin-top:.8rem"><button class="sec" id="reset" data-i18n="u_reset"></button></div></div></div></div>
+</div></section>
+
+<section><div class="wrap"><h2 data-i18n="t_h"></h2><span class="demo" data-i18n="t_demo"></span>
+<div class="grid g3" style="margin-top:1rem">
+<div class="card"><p>«<span data-i18n="t1"></span>»</p><p><b data-i18n="t_who"></b></p></div>
+<div class="card"><p>«<span data-i18n="t2"></span>»</p><p><b data-i18n="t_who"></b></p></div>
+<div class="card"><p>«<span data-i18n="t3"></span>»</p><p><b data-i18n="t_who"></b></p></div></div></div></section>
+
+<section id="pricing"><div class="wrap"><h2 data-i18n="pl_h"></h2>
+<div class="grid g2" style="margin-top:1rem">
+<div class="card price"><h3>Free</h3><div class="big">$0</div><ul><li data-i18n="pl_f1"></li><li data-i18n="pl_f2"></li><li data-i18n="pl_f3"></li></ul><button class="sec" data-go="p-mood" data-i18n="pl_b1"></button></div>
+<div class="card price hl"><h3>Premium</h3>
+<div class="row" style="margin:.2rem 0 .4rem">
+<button type="button" class="lang" id="monthly" aria-pressed="true" data-i18n="pl_month"></button>
+<button type="button" class="lang" id="annual" aria-pressed="false" data-i18n="pl_year"></button>
+</div>
+<div class="big" id="premiumPrice" style="color:#fff">$7.99<small style="font-size:1rem">/mo</small></div>
+<p id="premiumNote" style="color:#e9e1f8;font-size:.82rem" data-i18n="pl_month_note"></p>
+<ul><li data-i18n="pl_p1"></li><li data-i18n="pl_p2"></li><li data-i18n="pl_p3"></li></ul><button style="background:#fff;color:var(--deep)" id="buy" data-i18n="pl_b2"></button></div>
+</div></div></section>
+
+<section id="faq"><div class="wrap" style="max-width:760px"><h2 data-i18n="q_h"></h2>
+<details><summary data-i18n="q1"></summary><p data-i18n="a1"></p></details>
+<details><summary data-i18n="q2"></summary><p data-i18n="a2"></p></details>
+<details><summary data-i18n="q3"></summary><p data-i18n="a3"></p></details>
+<details><summary data-i18n="q4"></summary><p data-i18n="a4"></p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap"><b>Mindly</b> — <span data-i18n="slogan"></span><br><span data-i18n="foot"></span></div></footer>
+
+<dialog id="dlg"><h3 data-i18n="pay_h"></h3><div class="fake">•••• •••• •••• 0000</div><p data-i18n="pay_p"></p><div class="row" style="margin-top:1rem"><button class="pri" id="dclose" data-i18n="close"></button></div></dialog>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+var T={uk:{
+nav_f:'Можливості',nav_s:'Студія',nav_p:'Тарифи',nav_q:'FAQ',slogan:'Трохи більше спокою. Щодня.',lead:'Mindly — цифровий простір турботи про себе: щоденник настрою, короткі практики усвідомленості та м’який AI-помічник.',cta1:'Спробувати студію',cta2:'Дізнатися більше',b1:'Сьогодні трохи легше',
+f_h:'Все для щоденної турботи про себе',f_p:'Невеликі кроки, які легко вписати у звичайний день.',
+f1:'Щоденник настрою',f1p:'Фіксуйте настрій і думки та бачте, як усе змінюється з часом.',f2:'AI-помічник',f2p:'Розмова для рефлексії та ідей. У цій версії — демонстраційні відповіді.',f3:'Практики',f3p:'Дихання, заземлення, медитація й релаксація з таймером.',f4:'Цілі й звички',f4p:'Невеликі щоденні цілі та трекер звичок на тиждень.',f5:'Дані у вас',f5p:'У демоверсії всі записи зберігаються лише у вашому браузері.',f6:'Дві мови',f6p:'Українська та англійська без перезавантаження сторінки.',
+s_h:'Студія Mindly',disc:'Mindly не є медичним сервісом, не ставить діагнозів і не замінює психолога чи психотерапевта.',
+tab_mood:'Настрій',tab_chat:'Помічник',tab_prac:'Практики',tab_cab:'Мій кабінет',
+m_h:'Як ви почуваєтеся?',m_ph:'Що вплинуло на ваш настрій? (необов’язково)',m_save:'Зберегти запис',m_chart:'Динаміка настрою',m_cal:'Календар місяця',m_hist:'Історія',m_all:'Усі дати',m_none:'Записів ще немає. Оберіть настрій і збережіть перший.',m_pick:'Спершу оберіть настрій',m_ok:'Запис збережено',m_nochart:'Потрібно щонайменше 2 записи.',
+mn:['Дуже важко','Важко','Нейтрально','Добре','Чудово'],wd:['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],
+c_ph:'Напишіть повідомлення…',c_send:'Надіслати',c_note:'Демо-режим: відповіді шаблонні, це не справжня AI-модель. У разі кризи зверніться до фахівця або служби допомоги.',
+c_hi:'Привіт! Я демонстраційний помічник Mindly. Оберіть запитання нижче або напишіть своє.',
+q_list:['Мені тривожно','Як краще заснути?','Потрібна мотивація','Як зробити паузу?'],
+r_anx:'Дякую, що поділилися. Спробуйте повільний вдих на 4 секунди й видих на 4 — вправа є у розділі «Практики».',r_sleep:'Перед сном приглушіть екрани, зробіть кілька спокійних видихів і запишіть думки у щоденник.',r_mot:'Оберіть один дуже малий крок на сьогодні. Невелика дія вже рахується.',r_pause:'Зробіть паузу на хвилину: відчуйте стопи на підлозі й тричі повільно видихніть.',r_def:'Я чую вас. Розкажіть трохи більше — що зараз найбільше відчувається? (Це демо-відповідь.)',r_help:'Якщо вам дуже важко, будь ласка, зверніться до близьких або фахівця.',
+pr_h:'Оберіть практику',pr_start:'Почати',pr_stop:'Завершити',pr_done:'Практику завершено. Гарна робота!',
+pn:['Дихання 4–4','Заземлення 5–4–3–2–1','Медитація','Релаксація тіла'],
+pd:['Вдих 4 секунди, видих 4 секунди.','Назвіть те, що бачите, чуєте й відчуваєте.','Спокійно спостерігайте за диханням і думками.','Послідовно розслаблюйте частини тіла.'],
+in:'Вдих…',out:'Видих…',
+g54:['Назвіть 5 речей, які бачите','Відчуйте 4 речі дотиком','Прислухайтесь до 3 звуків','Знайдіть 2 запахи','Згадайте 1 смак'],
+med:['Зручно сядьте','Просто спостерігайте дихання','Думки приходять і йдуть','Повертайтеся до дихання'],
+rel:['Розслабте чоло й щелепу','Опустіть плечі','Розслабте руки','Відпустіть живіт','Розслабте ноги'],
+u_hi:'Вітаємо',u_name:'Ваше ім’я',u_goals:'Цілі на сьогодні',u_hab:'Трекер звичок (7 днів)',u_act:'Історія активності',u_reset:'Очистити демо-дані',u_noact:'Активності ще немає.',
+st:['Записів','Середній настрій','Практик'],
+gl:['Випити воду','Зробити практику','Записати настрій'],hb:['Прогулянка','Сон до 23:00','Без телефону ввечері','Розтяжка'],
+a_mood:'Запис настрою',a_prac:'Практика',reset_ok:'Дані очищено',reset_q:'Видалити всі демо-дані?',
+t_h:'Відгуки',t_demo:'Демонстраційні відгуки — не від реальних користувачів',t1:'Приклад тексту відгуку про зручний щоденник.',t2:'Приклад відгуку про дихальні практики.',t3:'Приклад відгуку про простий інтерфейс.',t_who:'Демо-користувач',
+pl_h:'Тарифи',pl_f1:'Щоденник настрою',pl_f2:'Базові практики',pl_f3:'Демо AI-помічник',pl_b1:'Почати безкоштовно',pl_p1:'Розширена статистика',pl_p2:'Персональні програми',pl_p3:'Додаткові практики',pl_b2:'Обрати Premium',pl_month:'Щомісяця',pl_year:'Щороку',pl_month_note:'Оплата щомісяця. Скасування будь-коли.',pl_year_note:'$59.99 на рік — вигідніше, ніж щомісячна оплата.',crisis:'Мені шкода, що вам зараз настільки важко. Ви не мусите залишатися з цим наодинці. Якщо є ризик, що ви можете негайно нашкодити собі, відійдіть від небезпечних предметів і ліків, перейдіть туди, де є інші люди, та зателефонуйте 112 або 103 в Україні. Також зв’яжіться з людиною, якій довіряєте, і прямо скажіть, що вам потрібна допомога. Я — лише демоверсія й не можу надати кризову підтримку.', 
+pay_h:'Оплата — скоро',pay_p:'Це демонстрація: справжню оплату не підключено. Тут буде форма платіжного провайдера.',close:'Закрити',
+q_h:'Часті запитання',q1:'Чи це медичний сервіс?',a1:'Ні. Mindly не ставить діагнозів і не замінює фахівця.',q2:'Де зберігаються мої дані?',a2:'У демоверсії — лише у localStorage вашого браузера.',q3:'Чи це справжній AI?',a3:'Ні, зараз працюють шаблонні відповіді. Реальний API можна підключити через захищений backend.',q4:'Чи працює оплата?',a4:'Ні, це лише дизайн майбутньої інтеграції.',
+foot:'Демонстраційний проєкт. Не є медичним продуктом.'},
+en:{
+nav_f:'Features',nav_s:'Studio',nav_p:'Pricing',nav_q:'FAQ',slogan:'A little more calm. Every day.',lead:'Mindly is a digital space for self-care: a mood journal, short mindfulness practices and a gentle AI companion.',cta1:'Try the studio',cta2:'Learn more',b1:'Feeling a bit lighter today',
+f_h:'Everything for daily self-care',f_p:'Small steps that fit into an ordinary day.',
+f1:'Mood journal',f1p:'Log your mood and thoughts and see how they change over time.',f2:'AI companion',f2p:'A conversation for reflection and ideas. This version uses demo replies.',f3:'Practices',f3p:'Breathing, grounding, meditation and relaxation with a timer.',f4:'Goals & habits',f4p:'Small daily goals and a weekly habit tracker.',f5:'Your data',f5p:'In this demo all entries stay in your browser only.',f6:'Two languages',f6p:'Ukrainian and English without reloading the page.',
+s_h:'Mindly Studio',disc:'Mindly is not a medical service, does not diagnose and does not replace a psychologist or therapist.',
+tab_mood:'Mood',tab_chat:'Companion',tab_prac:'Practices',tab_cab:'My space',
+m_h:'How are you feeling?',m_ph:'What influenced your mood? (optional)',m_save:'Save entry',m_chart:'Mood trend',m_cal:'Month calendar',m_hist:'History',m_all:'All dates',m_none:'No entries yet. Pick a mood and save your first one.',m_pick:'Pick a mood first',m_ok:'Entry saved',m_nochart:'At least 2 entries needed.',
+mn:['Very hard','Hard','Neutral','Good','Great'],wd:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+c_ph:'Type a message…',c_send:'Send',c_note:'Demo mode: replies are templates, not a real AI model. In a crisis, contact a professional or a helpline.',
+c_hi:'Hi! I am the Mindly demo companion. Pick a question below or write your own.',
+q_list:['I feel anxious','How to sleep better?','I need motivation','How to take a pause?'],
+r_anx:'Thank you for sharing. Try a slow 4-second inhale and a 4-second exhale. You will find it under “Practices”.',r_sleep:'Before bed, dim screens, take a few calm exhales and jot your thoughts in the journal.',r_mot:'Pick one very small step for today. A small action still counts.',r_pause:'Pause for a minute: feel your feet on the floor and exhale slowly three times.',r_def:'I hear you. Tell me a bit more — what feels strongest right now? (This is a demo reply.)',r_help:'If things feel overwhelming, please reach out to people close to you or a professional.',
+pr_h:'Choose a practice',pr_start:'Start',pr_stop:'Finish',pr_done:'Practice complete. Well done!',
+pn:['Breathing 4–4','Grounding 5–4–3–2–1','Meditation','Body relaxation'],
+pd:['Inhale 4 seconds, exhale 4 seconds.','Name what you see, hear and feel.','Calmly observe breath and thoughts.','Relax body parts one by one.'],
+in:'Inhale…',out:'Exhale…',
+g54:['Name 5 things you see','Feel 4 things by touch','Listen for 3 sounds','Find 2 scents','Recall 1 taste'],
+med:['Sit comfortably','Simply observe your breath','Thoughts come and go','Return to your breath'],
+rel:['Relax forehead and jaw','Drop your shoulders','Relax your arms','Release your belly','Relax your legs'],
+u_hi:'Welcome',u_name:'Your name',u_goals:'Today’s goals',u_hab:'Habit tracker (7 days)',u_act:'Activity history',u_reset:'Clear demo data',u_noact:'No activity yet.',
+st:['Entries','Average mood','Practices'],
+gl:['Drink water','Do a practice','Log your mood'],hb:['Walk','Sleep by 11pm','No phone at night','Stretch'],
+a_mood:'Mood entry',a_prac:'Practice',reset_ok:'Data cleared',reset_q:'Delete all demo data?',
+t_h:'Testimonials',t_demo:'Demo testimonials — not from real users',t1:'Sample text of a review about a handy journal.',t2:'Sample review about breathing practices.',t3:'Sample review about a simple interface.',t_who:'Demo user',
+pl_h:'Pricing',pl_f1:'Mood journal',pl_f2:'Basic practices',pl_f3:'Demo AI companion',pl_b1:'Start for free',pl_p1:'Advanced statistics',pl_p2:'Personal programs',pl_p3:'Extra practices',pl_b2:'Choose Premium',pl_month:'Monthly',pl_year:'Yearly',pl_month_note:'Billed monthly. Cancel anytime.',pl_year_note:'$59.99 per year — less than paying monthly.',crisis:'I’m sorry things feel this hard right now. You do not have to face this alone. If you may hurt yourself imminently, move away from dangerous objects and medication, go where other people are, and call your local emergency number. Contact someone you trust and tell them directly that you need help. I’m only a demo and cannot provide crisis support.', 
+pay_h:'Payments — coming soon',pay_p:'This is a demo: real payments are not connected. A payment provider form will appear here.',close:'Close',
+q_h:'FAQ',q1:'Is this a medical service?',a1:'No. Mindly does not diagnose and does not replace a professional.',q2:'Where is my data stored?',a2:'In this demo, only in your browser’s localStorage.',q3:'Is the AI real?',a3:'No, replies are templates for now. A real API can be connected through a secure backend.',q4:'Does payment work?',a4:'No, it is only the design of a future integration.',
+foot:'Demo project. Not a medical product.'}};
+var L=load('mindly.lang','uk'),$=function(s){return document.querySelector(s)},E=['😞','😕','😐','🙂','😄'];
+function t(k){return (T[L]||T.uk)[k]}
+function load(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function dk(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function toast(m){var x=$('#toast');x.textContent=m;x.classList.add('show');clearTimeout(toast.i);toast.i=setTimeout(function(){x.classList.remove('show')},2200)}
+var moods=load('mindly.moods',[]),S=load('mindly.state',{name:'',goals:{},habits:{},log:[]}),sel=0,filt='';
+function persist(){save('mindly.moods',moods);save('mindly.state',S)}
+/* i18n */
+function applyLang(){
+document.documentElement.lang=L;$('#lang').textContent=L==='uk'?'EN':'UA';
+document.querySelectorAll('[data-i18n]').forEach(function(e){e.textContent=t(e.dataset.i18n)});
+document.querySelectorAll('[data-i18n-ph]').forEach(function(e){e.placeholder=t(e.dataset.i18nPh)});
+buildTabs();buildMoods();renderMood();buildChips();buildSel();renderCab();
+if(typeof setPrice==='function')setPrice(annual);
+if(!$('#msgs').children.length)bot(t('c_hi'),true)}
+/* tabs */
+var ids=['mood','chat','prac','cab'],cur='mood';
+function buildTabs(){var b=$('#tabs');b.innerHTML='';ids.forEach(function(i){var x=document.createElement('button');x.textContent=t('tab_'+i);x.setAttribute('role','tab');x.setAttribute('aria-selected',i===cur);x.onclick=function(){go('p-'+i)};b.appendChild(x)})}
+function go(p){cur=p.slice(2);ids.forEach(function(i){$('#p-'+i).hidden=i!==cur});buildTabs();if(cur==='cab')renderCab()}
+/* mood */
+function buildMoods(){var b=$('#moods');b.innerHTML='';E.forEach(function(e,i){var x=document.createElement('button');x.className='mood';x.textContent=e;x.title=t('mn')[i];x.setAttribute('aria-label',t('mn')[i]);x.setAttribute('aria-pressed',sel===i+1);x.onclick=function(){sel=i+1;buildMoods()};b.appendChild(x)})}
+$('#msave').onclick=function(){if(!sel){toast(t('m_pick'));return}
+moods.push({d:dk(),ts:Date.now(),m:sel,c:$('#mc').value.trim()});S.log.unshift({ts:Date.now(),k:'mood',v:E[sel-1]});S.goals[dk()]=S.goals[dk()]||{};S.goals[dk()][2]=true;
+$('#mc').value='';sel=0;persist();buildMoods();renderMood();toast(t('m_ok'))};
+$('#mf').onchange=function(){filt=this.value;renderMood()};$('#mclr').onclick=function(){filt='';$('#mf').value='';renderMood()};
+function renderMood(){
+var h=$('#hist');h.innerHTML='';var list=moods.filter(function(x){return!filt||x.d===filt}).slice().reverse();
+if(!list.length){var li=document.createElement('li');li.className='empty';li.textContent=t('m_none');h.appendChild(li)}
+list.forEach(function(x){var li=document.createElement('li');var s=document.createElement('small');s.textContent=new Date(x.ts).toLocaleString(L==='uk'?'uk-UA':'en-GB');li.appendChild(s);li.appendChild(document.createTextNode(E[x.m-1]+' '+t('mn')[x.m-1]+(x.c?' — '+x.c:'')));h.appendChild(li)});
+var n=new Date(),y=n.getFullYear(),mo=n.getMonth(),first=(new Date(y,mo,1).getDay()+6)%7,days=new Date(y,mo+1,0).getDate(),last={};
+moods.forEach(function(x){last[x.d]=x.m});var c=$('#cal');c.innerHTML='';
+t('wd').forEach(function(w){var b=document.createElement('b');b.textContent=w;c.appendChild(b)});
+for(var i=0;i<first;i++)c.appendChild(document.createElement('i'));
+for(var d=1;d<=days;d++){var s=document.createElement('span'),k=y+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+if(last[k]){s.className='on';s.textContent=E[last[k]-1];s.title=d}else s.textContent=d;c.appendChild(s)}
+var pts=moods.slice(-14),ch=$('#chart');
+if(pts.length<2){ch.innerHTML='<p class="empty"></p>';ch.firstChild.textContent=t('m_nochart')}
+else{var p=pts.map(function(x,i){return(10+i*(280/(pts.length-1))).toFixed(1)+','+(90-(x.m-1)*20)}).join(' ');
+ch.innerHTML='<svg viewBox="0 0 300 100" width="100%" role="img" aria-label="chart"><polyline fill="none" stroke="#4b2e83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="'+p+'"/>'+p.split(' ').map(function(q){var a=q.split(',');return'<circle cx="'+a[0]+'" cy="'+a[1]+'" r="4" fill="#cdbdf0" stroke="#4b2e83" stroke-width="2"/>'}).join('')+'</svg>'}}
+/* chat */
+function msg(txt,c){var m=document.createElement('div');m.className='m '+c;m.textContent=txt;$('#msgs').appendChild(m);$('#msgs').scrollTop=1e5;return m}
+function bot(txt,instant){if(instant){msg(txt,'a');return}
+var d=msg('','a');d.innerHTML='<span class="dots"><span></span><span></span><span></span></span>';
+setTimeout(function(){d.textContent=txt;$('#msgs').scrollTop=1e5},900)}
+function reply(q){var s=q.toLowerCase();
+if(/(не хочу жити|не хочу більше жити|покінчити з життям|заподіяти собі шкод|нашкодити собі|самопошкод|суїцид|самогуб|hurt myself|harm myself|self.?harm|end my life|kill myself|suicid)/.test(s))return t('crisis');
+if(/(тривож|страх|панік|anx|panic|worr|stress|стрес)/.test(s))return t('r_anx');
+if(/(сон|заснут|безсон|sleep|insomn)/.test(s))return t('r_sleep');
+if(/(мотив|лінь|motiv|lazy)/.test(s))return t('r_mot');
+if(/(пауз|відпочи|pause|rest|break)/.test(s))return t('r_pause');
+return t('r_def')}
+function ask(q){q=q.trim();if(!q)return;msg(q,'u');bot(reply(q))}
+$('#cf').onsubmit=function(e){e.preventDefault();var i=$('#ci');ask(i.value);i.value=''};
+function buildChips(){var b=$('#chips');b.innerHTML='';t('q_list').forEach(function(q){var x=document.createElement('button');x.type='button';x.textContent=q;x.onclick=function(){ask(q)};b.appendChild(x)})}
+/* practices */
+var run=null,keys=['','g54','med','rel'];
+function buildSel(){var s=$('#psel'),v=s.value||0;s.innerHTML='';t('pn').forEach(function(n,i){var o=document.createElement('option');o.value=i;o.textContent=n;s.appendChild(o)});s.value=v;showDesc()}
+function showDesc(){$('#pdesc').textContent=t('pd')[+$('#psel').value]}
+$('#psel').onchange=showDesc;
+function stopRun(done){if(!run)return;clearInterval(run.id);var i=run.i;run=null;$('#pgo').textContent=t('pr_start');$('#po').style.transform='scale(1)';$('#pt').textContent=done?t('pr_done'):'';
+if(done){S.log.unshift({ts:Date.now(),k:'prac',v:t('pn')[i]});S.goals[dk()]=S.goals[dk()]||{};S.goals[dk()][1]=true;persist();toast(t('pr_done'))}}
+$('#pgo').onclick=function(){if(run){stopRun(false);return}
+var i=+$('#psel').value,total=+$('#pmin').value*60;run={i:i,left:total,el:0};$('#pgo').textContent=t('pr_stop');tick();
+run.id=setInterval(function(){run.left--;run.el++;if(run.left<=0){$('#ptime').textContent='0:00';stopRun(true);return}tick()},1000)};
+function tick(){var r=run,o=$('#po'),txt;
+if(r.i===0){var ph=Math.floor(r.el/4)%2===0;txt=ph?t('in'):t('out');o.style.transform=ph?'scale(1.9)':'scale(1)'}
+else{var a=t(keys[r.i]),step=r.i===1?20:15;txt=a[Math.floor(r.el/step)%a.length];o.style.transform=Math.floor(r.el/4)%2===0?'scale(1.5)':'scale(1.1)'}
+$('#pt').textContent=txt;$('#ptime').textContent=Math.floor(r.left/60)+':'+String(r.left%60).padStart(2,'0')}
+/* cabinet */
+function renderCab(){
+$('#hello').textContent=t('u_hi')+(S.name?', '+S.name:'')+' 👋';$('#uname').value=S.name;
+var avg=moods.length?(moods.reduce(function(a,x){return a+x.m},0)/moods.length).toFixed(1):'–',pc=S.log.filter(function(x){return x.k==='prac'}).length,v=[moods.length,avg,pc],st=$('#stats');st.innerHTML='';
+t('st').forEach(function(l,i){var d=document.createElement('div');d.innerHTML='<div class="big"></div><small class="empty"></small>';d.firstChild.textContent=v[i];d.lastChild.textContent=l;st.appendChild(d)});
+var g=$('#goals');g.innerHTML='';var gk=S.goals[dk()]||{};
+t('gl').forEach(function(n,i){var l=document.createElement('label');l.className='chk';var c=document.createElement('input');c.type='checkbox';c.checked=!!gk[i];c.onchange=function(){S.goals[dk()]=S.goals[dk()]||{};S.goals[dk()][i]=c.checked;persist()};l.appendChild(c);l.appendChild(document.createTextNode(n));g.appendChild(l)});
+var hb=$('#habs');hb.innerHTML='<span></span>';var days=[];
+for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);days.push(dk(d));var s=document.createElement('b');s.textContent=t('wd')[(d.getDay()+6)%7];hb.appendChild(s)}
+t('hb').forEach(function(n,hi){var s=document.createElement('span');s.textContent=n;hb.appendChild(s);days.forEach(function(k){var b=document.createElement('button');var key=hi+'|'+k;b.className=S.habits[key]?'on':'';b.textContent=S.habits[key]?'✓':'';b.setAttribute('aria-label',n+' '+k);b.onclick=function(){S.habits[key]=!S.habits[key];persist();renderCab()};hb.appendChild(b)})});
+var a=$('#act');a.innerHTML='';
+if(!S.log.length){var li=document.createElement('li');li.className='empty';li.textContent=t('u_noact');a.appendChild(li)}
+S.log.slice(0,15).forEach(function(x){var li=document.createElement('li');var s=document.createElement('small');s.textContent=new Date(x.ts).toLocaleString(L==='uk'?'uk-UA':'en-GB');li.appendChild(s);li.appendChild(document.createTextNode((x.k==='mood'?t('a_mood'):t('a_prac'))+': '+x.v));a.appendChild(li)})}
+$('#uname').oninput=function(){S.name=this.value.trim();persist();$('#hello').textContent=t('u_hi')+(S.name?', '+S.name:'')+' 👋'};
+$('#reset').onclick=function(){if(!confirm(t('reset_q')))return;moods=[];S={name:'',goals:{},habits:{},log:[]};persist();renderMood();renderCab();toast(t('reset_ok'))};
+/* misc */
+$('#lang').onclick=function(){L=L==='uk'?'en':'uk';save('mindly.lang',L);applyLang()};
+$('#burger').onclick=function(){$('#nav').classList.toggle('open')};
+document.querySelectorAll('#nav a').forEach(function(a){a.addEventListener('click',function(){$('#nav').classList.remove('open')})});
+document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){go(b.dataset.go);$('#studio').scrollIntoView({behavior:'smooth'})}});
+var annual=false;
+function setPrice(isAnnual){
+annual=!!isAnnual;
+$('#premiumPrice').innerHTML=annual?'$59.99<small style="font-size:1rem">/yr</small>':'$7.99<small style="font-size:1rem">/mo</small>';
+$('#premiumNote').textContent=t(annual?'pl_year_note':'pl_month_note');
+$('#monthly').setAttribute('aria-pressed',String(!annual));
+$('#annual').setAttribute('aria-pressed',String(annual));
+}
+$('#monthly').onclick=function(){setPrice(false)};
+$('#annual').onclick=function(){setPrice(true)};
+$('#buy').onclick=function(){var d=$('#dlg');if(d.showModal)d.showModal()};
+$('#dclose').onclick=function(){$('#dlg').close()};
+if(L!=='uk'&&L!=='en')L='uk';
+applyLang();
+})();
+</script>
+</body>
+</html>
